@@ -410,6 +410,14 @@ export default {
         }
       )
     },
+    selectRoom: function(param) {
+      if(param && param.length !== 0) {
+        this.activitiesDropdown = [];
+        param.map(data => {
+          this.activitiesDropdown.push(data.activity);
+        });
+      }
+    }
   },
   computed: {
     currentActivityInRoom: function(){
@@ -438,7 +446,6 @@ export default {
   },
   watch: {
     selectedRoomId: function(newRoom, oldRoom){
-
       if (newRoom === oldRoom) return;
 
       this.selectedActivity = ""
@@ -454,6 +461,7 @@ export default {
       }else{
         this.selectedRoom = room
         this.activities = room.activities;
+        this.selectRoom(room.activities);
       }
       // clear dropdown model 
       this.selectedActivity = null
@@ -463,7 +471,6 @@ export default {
       this.subForm.frequency = []
     },
     selectedActivity: function(newActivity, oldActivity){
-
       if (newActivity === oldActivity || newActivity===null) return;
 
       const currentActivity = this.activities.find(
@@ -482,7 +489,7 @@ export default {
         // update also the settings room that will posted to BE
         this.settingsRooms[this.currentRoomIndex] = this.selectedRoom
       }else{
-        console.log('here')
+        // console.log('here')
       }
 
       this.subForm = {...currentActivity}
@@ -497,13 +504,6 @@ export default {
         this.setupSettings()
       }
     },
-/*  
-    subForm: {
-     deep: true,
-      handler: function(newValue) {
-        console.log(newValue.pre_selected)
-      }
-    } */
   }
 };
 </script>
