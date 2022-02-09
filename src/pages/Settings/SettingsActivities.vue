@@ -438,6 +438,7 @@ export default {
   },
   watch: {
     selectedRoomId: function(newRoom, oldRoom){
+
       if (newRoom === oldRoom) return;
 
       this.selectedActivity = ""
@@ -460,10 +461,9 @@ export default {
       this.subForm.time = ["0","0","0"]
       this.subForm.weeks = []
       this.subForm.frequency = []
-
-      
     },
     selectedActivity: function(newActivity, oldActivity){
+
       if (newActivity === oldActivity || newActivity===null) return;
 
       const currentActivity = this.activities.find(
@@ -482,7 +482,7 @@ export default {
         // update also the settings room that will posted to BE
         this.settingsRooms[this.currentRoomIndex] = this.selectedRoom
       }else{
-        // console.log('here')
+        console.log('here')
       }
 
       this.subForm = {...currentActivity}
@@ -497,6 +497,13 @@ export default {
         this.setupSettings()
       }
     },
+/*  
+    subForm: {
+     deep: true,
+      handler: function(newValue) {
+        console.log(newValue.pre_selected)
+      }
+    } */
   }
 };
 </script>

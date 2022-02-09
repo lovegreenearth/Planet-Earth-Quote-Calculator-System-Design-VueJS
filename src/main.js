@@ -7,6 +7,9 @@ import VueConfirmDialog from 'vue-confirm-dialog'
 import CurrencyInput from './components/common/CurrencyInput.vue'
 import CustomDropdown from './components/common/CustomDropdown.vue'
 import Toasted from 'vue-toasted';
+ 
+
+// console.log(CurrencyInput, "cur input")
 
 // font awesome library
 

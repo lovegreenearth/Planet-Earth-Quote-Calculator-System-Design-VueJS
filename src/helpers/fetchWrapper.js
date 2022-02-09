@@ -17,6 +17,8 @@ const parseJSON = (isJson) => (response) => {
 }
 
 const request = (url, options, isJson = true) => {
+
+  // console.log('env', process.env.API_URL)
   const localData = localStorage.getItem('jwt')
   const token = localData ? (JSON.parse(localData)).token : ''
   // eslint-disable-next-line no-param-reassign

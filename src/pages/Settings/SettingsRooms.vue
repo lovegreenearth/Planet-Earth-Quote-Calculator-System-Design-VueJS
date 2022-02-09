@@ -24,26 +24,6 @@
             </div>
           </div>
         
-          <div class="row h-space">
-            <div class="col-3 h-space">
-              <label>Activities</label>
-            </div>
-            <div class="col-9 h-space">
-              <custom-dropdown
-                :options="activitiesDropdown"
-                :default="'Edit an activity'"
-                class="select"
-                v-model="selectedActivity"
-                keyName="name"
-                keyValue="id"
-                @onDelete="confirmDeleteActivity($event)" 
-                @onAdd="addActivity($event)"
-                @onSelect="clearFields()"
-              />
-                <!-- @onDelete="confirmDeleteRoom($event)"
-                @onEdit="editRoom($event)" -->
-            </div>
-          </div>
       </form>
     </div>
   </div>
@@ -61,13 +41,12 @@ export default {
   components: {
     CustomDropdown
   },
+
   props: {
     msg: String,
-    activitiesDropdown: [],
   },
   mounted() {
-    this.fetchRooms();
-    this.fetchActivities();
+    this.fetchRooms()
   },
   // computed: {
   //   currentProposal () {
@@ -104,7 +83,6 @@ export default {
       action: 'add',
       rooms:[],
       selected: null,
-      selectedActivity: "",
       roomData: {
         name:'',
         description:''
@@ -121,79 +99,6 @@ export default {
         }).catch((err) => {
           console.log(err)
         })
-    },
-    fetchActivities: function () {
-      request(`${GET_TAXONOMY}activities?per_page=99`, {
-        method: "GET",
-      })
-        .then((res) => {
-          console.log(res);
-          this.activitiesDropdown = res;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    confirmDeleteActivity: function(e) {
-
-      const currentActivityId = e;
-      // const findActivity = this.activity.find(a=> a.activity.term_id === this.selectedActivity.id ||  a.activity.id === this.selectedActivity.id);
-      // const currActivityName = findActivity.name;
-
-       this.$confirm(
-        {
-          message: `Are you sure you want to delete the activity?`, //${currActivityName}
-          button: {
-            no: 'No',
-            yes: 'Yes'
-          },
-          /**
-          * Callback Function
-          * @param {Boolean} confirm 
-          */
-          callback: confirm => {
-            if (confirm) {
-              this.deleteActivity(currentActivityId)
-            }
-          }
-        }
-      )
-    },
-    addActivity: function (e) {
-      this.action = "add";
-      const activityData = {
-        name: e,
-        description: "",
-      };
-
-      if (activityData.name !== "") this.saveActivityData(activityData);
-    },
-    clearFields: function () {
-    
-    },
-    saveActivityData: function (activityData) {
-      const url =
-        this.action === "add"
-          ? `${UPDATE_TAXONOMY}activities`
-          : `${UPDATE_TAXONOMY}activities/${this.settings.ID}`; 
-          // find id first
-
-      let formData = activityData;
-
-      request(`${url}`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          this.fetchActivities();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     saveData: function() {
       const url = this.action==='add' ?  `${UPDATE_TAXONOMY}rooms`  : `${UPDATE_TAXONOMY}rooms/${this.id}`
@@ -246,6 +151,7 @@ export default {
     toggleForm: function(action){
       this.action = action;
       this.showAddRoom = !this.showAddRoom
+      console.log(this.$refs.room_select.$data.searchText)
     },
     addRoom: function(e){
       this.action = 'add';

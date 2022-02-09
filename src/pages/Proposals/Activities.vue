@@ -167,6 +167,8 @@ export default {
      updateProposal(e){
 
       if (this.currentActivity === null){
+        //this.$router.push({ name: 'ProposalLevel' })
+        console.log('No activitiy selected')
         return
       }
 

@@ -354,9 +354,11 @@ export default {
     selectedFloor(){
       if (this.floors.length === null) return 'Edit floor activity';
       if (this.currentFloor.id==='Select') return ''
+      console.log(this.currentFloor.acf)
 
       const item = this.floors.find(a=>a.id === this.currentFloor.id)
       if (item) return item.acf.calculation
+
 
       return ''
     },

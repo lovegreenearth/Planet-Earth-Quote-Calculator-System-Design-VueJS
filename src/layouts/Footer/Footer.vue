@@ -29,8 +29,10 @@ export default {
     hasClass() {
         const element = document.querySelector('.proposal-header')
         if (element.classList.contains('my-3')) {
+          console.log(true)
           document.querySelector('.footer').classList.add("hide-footer");
         } else {
+          console.log(false)
           document.querySelector('.footer').classList.remove("hide-footer");
       
       }

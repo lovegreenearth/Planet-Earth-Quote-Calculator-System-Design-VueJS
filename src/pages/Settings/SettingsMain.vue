@@ -108,6 +108,7 @@ export default {
 
   methods: {
     updateSettings: async function(){
+        console.log('trigged by emti')
         let formData = {
           fields: {
             days:[],

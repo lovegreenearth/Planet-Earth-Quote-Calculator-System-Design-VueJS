@@ -141,6 +141,7 @@ export default {
      adminOnly() {
        const userData = localStorage.getItem('user')
        const userRoles = JSON.parse(userData).roles
+       console.log(userRoles.includes("administrator"), 'admin?')
        return userRoles.includes("administrator")
      }
   }

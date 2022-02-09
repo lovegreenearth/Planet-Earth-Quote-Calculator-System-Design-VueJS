@@ -112,10 +112,12 @@ export default new Vuex.Store({
               "Content-Type": "application/json",
             },
           }).then((res) => {
+              console.log(res, 'result here')
               let proposal = {...res, refresh: true}
               commit('updateCurrentProposal', proposal)
               resolve(true)
           }).catch( (err) => {
+            console.log(err, "error encountered")
             reject (err)
           })
         
